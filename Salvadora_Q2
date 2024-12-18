@@ -1,0 +1,103 @@
+// Java Program to Perform Bubble Sort, Selection Sort, and Analyze Power Levels
+import java.util.Scanner;
+
+public class PowerLevelAnalyzer {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] powerLevels = new int[10];
+
+        // Input: Power Levels
+        System.out.println("Enter the power levels of 10 creatures:");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Power Level " + (i + 1) + ": ");
+            powerLevels[i] = scanner.nextInt();
+        }
+
+        // Bubble Sort for Ascending Order
+        int[] bubbleSorted = powerLevels.clone();
+        bubbleSort(bubbleSorted);
+        System.out.println("\nPower levels sorted in ascending order (Bubble Sort):");
+        displayArray(bubbleSorted);
+
+        // Selection Sort for Descending Order
+        int[] selectionSorted = powerLevels.clone();
+        selectionSort(selectionSorted);
+        System.out.println("\nPower levels sorted in descending order (Selection Sort):");
+        displayArray(selectionSorted);
+
+        // Calculate and Display Analysis
+        calculateAndDisplayAnalysis(powerLevels);
+
+        scanner.close();
+    }
+
+    // Bubble Sort Algorithm
+    public static void bubbleSort(int[] array) {
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    // Swap array[j] and array[j + 1]
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Selection Sort Algorithm
+    public static void selectionSort(int[] array) {
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            // Find the maximum element in the remaining array
+            int maxIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (array[j] > array[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            // Swap the found maximum with the first element of the unsorted part
+            int temp = array[maxIndex];
+            array[maxIndex] = array[i];
+            array[i] = temp;
+        }
+    }
+
+    // Display Array Elements
+    public static void displayArray(int[] array) {
+        for (int value : array) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+
+    // Calculate and Display Analysis
+    public static void calculateAndDisplayAnalysis(int[] array) {
+        int sumEven = 0;
+        int sumOdd = 0;
+        int min = array[0];
+        int max = array[0];
+
+        for (int value : array) {
+            if (value % 2 == 0) {
+                sumEven += value;
+            } else {
+                sumOdd += value;
+            }
+            if (value < min) {
+                min = value;
+            }
+            if (value > max) {
+                max = value;
+            }
+        }
+
+        System.out.println("\nAnalysis:");
+        System.out.println("Sum of Even Power Levels: " + sumEven);
+        System.out.println("Sum of Odd Power Levels: " + sumOdd);
+        System.out.println("Minimum Power Level: " + min);
+        System.out.println("Maximum Power Level: " + max);
+    }
+}
